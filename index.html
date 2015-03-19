@@ -1,1 +1,85 @@
-Hello world
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="style/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="js/myApp.js"></script>
+</head>
+<header>
+	<title>Dashboard</title>
+</header>
+<body style="font-family: 'Source Sans Pro', sans-serif">
+	<nav class="navbar navbar-fixed">
+		<div class="container-fluid">
+			<div class="navbar-header" id="logo">
+				<span style="color: #CC7832; font-style: italic;">void</span><span style="color: #c1c1c1"> Curiosity</span>
+				<span style="color: #c1c1c1;;">() {</span>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container-fluid">
+		<div ng-app="app" ng-controller="scoreBoardController">
+			<div id="sidebar" class="col-sm-3 col-md-3 col-xs-12">
+				<div id="ranking">
+					<h2 class="page-header">Rating</h2>
+					<div class="row"  style="line-height:30px">#<span style="padding-left:10px">Handle</span><span style="float:right">Rating</span></div>
+					<div class="row" ng-repeat="user in users | orderBy : '-rating'">
+						{{ $index + 1 }}
+						. <a target="_blank" title="{{ user.name }}" href="http://codeforces.com/profile/{{ user.handle }}"
+						<span class='{{user.rank}}'>{{ user.handle }}</span></a>
+						<span  style="float:right">{{ user.rating }}</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-9 col-md-9 col-xs-12 main">
+				<h2 class="page-header">Upcoming contests</h2>
+				<div class='row'>
+					<div class="col-md-1 col-xs-1">#</div>
+					<div class="col-md-5 col-xs-5" style="text-align:center">Name</div>
+					<div class="col-md-3 col-xs-3" style="text-align:center">Start</div>
+					<div class="col-md-2 col-xs-2" style="text-align:center">Duration</div>
+				</div>
+				<div id="contestList" class="row">
+					<div class="row" ng-repeat="contest in contests">
+						<div class="col-md-1 col-xs-1" style="text-align:center">{{ $index + 1}} </div>
+						<div class="col-md-5 col-xs-5" style="text-align:center" >
+							<a target="_blank" href="http://codeforces.com/contests/{{ contest.contestId }}">{{ contest.name}}</a></div><div class="col-md-3 col-xs-3" style="text-align:center">{{ contest.startTime }}</div><div class="col-md-2 col-xs-2" style="text-align:center">{{ contest.duration }}</div>
+					</div>
+				</div>
+				<h2 class="page-header">Dashboard</h2>
+				<div id="dash-board">
+					<div class="row">
+						<div class="col-md-1 col-xs-1">#</div>
+						<div class="col-md-2 col-xs-2">When</div>
+						<div class="col-md-2 col-xs-2">Who</div>
+						<div class="col-md-4 col-xs-4">Problem</div>
+						<div class="col-md-2 col-xs-2">Verdict</div>
+						<div class="col-md-1 col-xs-1">Time</div>
+					</div>
+					<div class="row" style="text-align:center" ng-repeat="submit in listSubmission">
+						<div class="col-md-1 col-xs-1"><a target="_blank" title="source" href="http://codeforces.com/contest/{{submit.problem.contestId}}/submission/{{ submit.id }}">{{ submit.programmingLanguage}}</a></div>
+						<div class="col-md-2 col-xs-2">{{ submit.time }}</div>
+						<div class="col-md-2 col-xs-2">{{ submit.user }}</div>
+						<div class="col-md-4 col-xs-4"><a target="_blank" href="http://codeforces.com/problemset/problem/{{submit.problem.contestId}}/{{submit.problem.index}}">{{submit.problem.contestId}}{{submit.problem.index}} - {{ submit.problem.name }}</a></div>
+						<div class="col-md-2 col-xs-2"><span class="{{ submit.verdict}}"></span></div>
+						<div class="col-md-1 col-xs-1" style="text-align:left">{{ submit.timeConsumedMillis}} ms</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="container-fluid" style="padding-left:150px">
+			<span style="color: #c1c1c1; font-size:21px;; padding-left:50px"> out.println("<span style="color:#6A8759">Hello world!</span>");</span></br>
+			<span style="color: #c1c1c1; font-size:21px;"> }</span>
+		</div>
+	</footer>
+</body>
+</html>

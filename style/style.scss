@@ -1,0 +1,195 @@
+// my style
+// var zone
+$candidate-color: #a0a;
+$expert-color: blue;
+$specialist-color: #3c763d;
+$pupil-color: #3c763d;
+//
+$brand-color: white;
+$submit-error: #00a;
+//
+
+.brand{
+	background-color:red;
+	color:$brand-color;
+	font-size: 36px;
+	float: left;
+	line-height: 90px;
+	margin-right: 30px;
+}
+
+#logo{
+	font-size:36px;
+}
+
+.navbar{
+	border-radius: 0px;
+	background-color:#2B2B2B;
+}
+
+.footer {
+	position: relative;
+	margin-top: 100px; /* negative value of footer height */
+	height: 90px;
+	clear:both;
+	padding-top:20px;
+	background-color:#2B2B2B;
+}
+
+@media screen and ( max-width: 768px ) {
+ /* When the viewport is 768px or less, 
+ hide #sidebar */
+ #sidebar {
+ 	display: none;
+ }
+}
+#sidebar {
+	border-right: 1px solid #eee;
+}
+
+#contestList{
+	line-height:25px;
+}
+
+#dash-board
+{
+	font-size:13px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:0px;
+
+	.row
+	{
+		line-height:25px;
+		text-align: center;
+		border-top:1px solid #ECE4E4;
+		margin-right: 0px;
+		margin-left: 0px;
+	}
+	.row div{
+		border-right:1px solid #ECE4E4;
+	}
+
+	.row div:first-child{
+		border-left:1px solid #ECE4E4;
+	}
+
+	.row:first-child
+	{
+		font-weight:bold;
+		font-size: 14px;
+		text-align: center;
+	}
+	.row:nth-child(odd){
+		background-color: #f8f8f8;
+	}
+	.row:last-child {
+		border-bottom:1px solid #ECE4E4;
+	}
+}
+
+#ranking
+{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:20px;
+	line-height:30px;
+	/*
+	.row:nth-child(even){
+		background-color: #EFEFEF;
+	}
+	.row:nth-child(odd){
+		background-color: #F5F5F5;
+		} */
+		.row{
+			border-bottom: 1px solid #e7e7e7;
+			padding-left:10px;
+			padding-right:10px;
+		}
+	}
+
+	.rated-user {
+		font-weight:bold;
+	}
+
+	.candidate {
+		@extend .rated-user;
+		color: $candidate-color !important;
+	}
+
+	.expert {	
+		@extend .rated-user;
+		color: $expert-color !important;
+	}		
+	.specialist {
+		@extend .rated-user;
+		color: $specialist-color !important;
+	}
+	.pupil {
+		@extend .rated-user;
+		color: $pupil-color !important;
+	}
+	.user-black{
+		color: black !important;
+		font-weight: normal !important;
+	}
+	.TESTING {
+		color: gray; 
+	}
+	.TESTING:after {
+		content:'Running'; 
+	}
+	.OK {
+		color: green;
+		font-weight: bold;
+	}
+	.OK:after {
+		content:'Accepted'; 
+	}
+	.WRONG_ANSWER {
+		color: $submit-error;
+	}
+	.WRONG_ANSWER:after {
+		content:'Wrong answer'; 
+	}
+	.TIME_LIMIT_EXCEEDED {
+		color: $submit-error;
+	}
+	.TIME_LIMIT_EXCEEDED:after {
+		content:'Time limit exceeded'; 
+	}
+	.RUNTIME_ERROR {
+		color: $submit-error;
+	}
+	.RUNTIME_ERROR:after {
+		content:'Runtime error'; 
+	}
+	.COMPILATION_ERROR {
+		color: $submit-error;
+	}
+	.COMPILATION_ERROR:after {
+		content:'Compilation error'; 
+	}
+	.CHALLENGED {
+		color: red;
+	}
+	.CHALLENGED:after {
+		content:'Hacked'; 
+	}
+	.SKIPPED:after {
+		content:'Skipped'; 
+	}
+	.glyphicon-refresh-animate {
+		-animation: spin .7s infinite linear;
+		-webkit-animation: spin2 .7s infinite linear;
+	}
+
+	@-webkit-keyframes spin2 {
+		from { -webkit-transform: rotate(0deg);}
+		to { -webkit-transform: rotate(360deg);}
+	}
+
+	@keyframes spin {
+		from { transform: scale(1) rotate(0deg);}
+		to { transform: scale(1) rotate(360deg);}
+	}
