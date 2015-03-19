@@ -15,7 +15,6 @@ app.service('CodeforcesService',function($http){
 					userList[i].rating = 0;
 					userList[i].rank = "user-black";
 					userList[i].name = map[userList[i].handle];
-					console.log(userList[i].handle + " - " + userList[i].name);
 				}
 			}
 			return userList;
@@ -161,14 +160,21 @@ app.controller('scoreBoardController',function($scope,$http,$interval,Codeforces
 			CodeforcesService.getUserStatus(usersList[$scope.index].handle).then(function(response){
 				// update dashboard
 				var res = response.data.result;
-				$.merge(res,$scope.listSubmission);
-				//console.log(res);
+				var map = [];
+				for(var i = 0; i < res.length; i++){
+					map[res[i].id] = true;
+				}
+				for(var i = 0; i < $scope.listSubmission.length; i++){
+					if(!map[$scope.listSubmission[i].id]){
+						res.push($scope.listSubmission[i]);
+					}
+				}
 				res.sort(function(a,b){
 					return a.creationTimeSeconds < b.creationTimeSeconds ? 1 : -1;
 				});
 				$scope.listSubmission = res.slice(0, 25);
 			});
-		}, 5000);
+		}, 1000);
 	}
 	init(),
 	$scope.showSubmition = function(user){
