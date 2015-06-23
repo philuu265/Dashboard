@@ -22,6 +22,10 @@
   padding-top: 20px;
   background-color: #2B2B2B; }
 
+.header {
+  text-align: center;
+  font-weight: bold; }
+
 @media screen and (max-width: 768px) {
   /* When the viewport is 768px or less, 
   hide #sidebar */
@@ -48,10 +52,6 @@
     border-right: 1px solid #ECE4E4; }
   #dash-board .row div:first-child {
     border-left: 1px solid #ECE4E4; }
-  #dash-board .row:first-child {
-    font-weight: bold;
-    font-size: 14px;
-    text-align: center; }
   #dash-board .row:nth-child(odd) {
     background-color: #f8f8f8; }
   #dash-board .row:last-child {
@@ -68,7 +68,7 @@
   }
   .row:nth-child(odd){
   	background-color: #F5F5F5;
-  } */ }
+  	} */ }
   #ranking .row {
     border-bottom: 1px solid #e7e7e7;
     padding-left: 10px;

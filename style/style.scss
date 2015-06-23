@@ -36,6 +36,11 @@ $submit-error: #00a;
 	background-color:#2B2B2B;
 }
 
+.header{
+	text-align:center;
+	font-weight:bold;
+}
+
 @media screen and ( max-width: 768px ) {
  /* When the viewport is 768px or less, 
  hide #sidebar */
@@ -74,12 +79,6 @@ $submit-error: #00a;
 		border-left:1px solid #ECE4E4;
 	}
 
-	.row:first-child
-	{
-		font-weight:bold;
-		font-size: 14px;
-		text-align: center;
-	}
 	.row:nth-child(odd){
 		background-color: #f8f8f8;
 	}

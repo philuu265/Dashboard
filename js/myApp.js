@@ -37,7 +37,7 @@ app.service('CodeforcesService',function($http){
 		if(type == 0) return time;
 		var second = a.getSeconds();
 		if(second < 10) second = '0' + second;
-		month = a.getMonth();
+		month = a.getMonth() + 1;
 		return date + '-' + month + '-' + year + ' ' + hour + ':' + min + ':' + second;
 	},
 
@@ -141,8 +141,9 @@ app.controller('scoreBoardController',function($scope,$http,$interval,Codeforces
 	usersList.add("ape", "Luu Nhat Phi");
 	usersList.add("tourer", "Luu Nhat Phi");
 	usersList.add("luunhatphi", "Luu Nhat Phi");
-	usersList.add("khoahoc1024", "Nguyen Manh Phuc");
-	usersList.add("nguyenmanhphuc", "Nguyen Manh Phuc");
+	//usersList.add("khoahoc1024", "Nguyen Manh Phuc");
+	//usersList.add("nguyenmanhphuc", "Nguyen Manh Phuc");
+	usersList.add("redbell014", "Nguyen Hong Khanh");
 	usersList.add("T.C.D", "Tran Cong Duy");
 	usersList.add("trancongduy", "Tran Cong Duy");
 
