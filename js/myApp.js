@@ -1,4 +1,14 @@
-var app = angular.module('app', []);
+var app = angular.module('app', ['angular-loading-bar']);
+
+app.filter('convert', function() {
+	return function(input) {
+		if(input && input >= 1000){
+			return Math.floor(input/10)/100 + ' s';
+		}
+		return input + ' ms';
+	};
+});
+
 app.service('CodeforcesService',function($http){
 
 	this.getUserInfo = function(users){
@@ -22,33 +32,12 @@ app.service('CodeforcesService',function($http){
 		return promise;
 	},
 
-	dateConverter = function(UNIX_timestamp, type){
-		var a = new Date(UNIX_timestamp*1000);
-		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-		var year = a.getFullYear();
-		var month = months[a.getMonth()];
-		var date = a.getDate();
-		var hour = a.getHours();
-		var min = a.getMinutes();
-		if(date < 10) date = '0' + date;
-		if(hour < 10) hour = '0' + hour;
-		if(min < 10) min = '0' + min;
-		var time = month + '/' + date + '/' + year + ' ' + hour + ':' + min;
-		if(type == 0) return time;
-		var second = a.getSeconds();
-		if(second < 10) second = '0' + second;
-		month = a.getMonth() + 1;
-		return date + '-' + month + '-' + year + ' ' + hour + ':' + min + ':' + second;
-	},
-
 	timeConverter = function(seconds){
 		var hours = Math.floor(seconds/3600);
 		var minutes = (seconds % 3600)/60;
 		if(minutes < 10) minutes = '0' + minutes;
 		return hours + ':' + minutes;
 	},
-
-
 
 	this.getContests = function(){
 		var url = 'http://codeforces.com/api/contest.list?jsonp=JSON_CALLBACK&gym=false';
@@ -58,8 +47,7 @@ app.service('CodeforcesService',function($http){
 			contestList = data.result;
 			for(var i = 0; i < contestList.length; ++i){
 				if(contestList[i].phase == 'BEFORE'){
-					var startTime = dateConverter(contestList[i].startTimeSeconds,0);
-					var contest = new Contest(contestList[i].id, contestList[i].name, startTime, timeConverter(contestList[i].durationSeconds));
+					var contest = new Contest(contestList[i].id, contestList[i].name, contestList[i].startTimeSeconds, timeConverter(contestList[i].durationSeconds));
 					res.push(contest);
 				}
 			}
@@ -74,12 +62,7 @@ app.service('CodeforcesService',function($http){
 		.success(function(data){
 			listSubmission = data.result;
 			for(var i = 0; i <  listSubmission.length; ++i){
-				listSubmission[i].user = username;
-				listSubmission[i].time = dateConverter(listSubmission[i].creationTimeSeconds,1);
-				var timeConsumedMillis = listSubmission[i].timeConsumedMillis;
-				if(timeConsumedMillis >= 1000){
-					listSubmission[i].timeConsumedMillis = Math.floor(timeConsumedMillis/10)/100;
-				}
+				listSubmission[i].user = listSubmission[i].author.members[0].handle;
 			}
 			return listSubmission;
 		});
@@ -127,22 +110,17 @@ app.controller('scoreBoardController',function($scope,$http,$interval,Codeforces
 		usersList.push(user);
 		return user;
 	}
-	/*
-	usersList.add("eiu130068danvu", "Vũ Ngọc Đàn", "1331210068");
-	usersList.add("eiu139036dungtran", "Trần Thị Kim Dung", "1331209036");
-	usersList.add("eiu130008thuydung", "Vũ Thị Thùy Dung", "1331200008");
-	usersList.add("eiu139037hanhnguyen", "Nguyễn Thị Hồng Hạnh", "1331209037");
-	usersList.add("eiu130009hoangdinh", "Đinh Tiên Hoàng", "1331210009");
-	usersList.add("eiu130013thinhbui", "Bùi Đắc Thịnh", "1331210013");
-	usersList.add("eiu130023thuongtruong", "Trương Nguyễn Hoài Thương", "1331200023")
+	
 	usersList.add("eiu130028tu.huynh", "Huỳnh Phan Thanh Tú", "1331200028");
-	usersList.add("eiu119034tuanngo", "Ngô Anh Tuấn", "1131219034");
-	*/
-	usersList.add("ape", "Luu Nhat Phi");
-	usersList.add("tourer", "Luu Nhat Phi");
+	usersList.add("hanhnguyen", "unknown", "unknown");
+	usersList.add("hoaithuong", "unknown", "unknown");
+	usersList.add("solita", "unknown", "unknown");
+	usersList.add("Ratulf", "unknown", "unknown");
+	//usersList.add("ape", "Luu Nhat Phi");
+	//usersList.add("tourer", "Luu Nhat Phi");
 	usersList.add("luunhatphi", "Luu Nhat Phi");
 	//usersList.add("khoahoc1024", "Nguyen Manh Phuc");
-	//usersList.add("nguyenmanhphuc", "Nguyen Manh Phuc");
+	usersList.add("nguyenmanhphuc", "Nguyen Manh Phuc");
 	usersList.add("redbell014", "Nguyen Hong Khanh");
 	usersList.add("T.C.D", "Tran Cong Duy");
 	usersList.add("trancongduy", "Tran Cong Duy");
@@ -154,6 +132,11 @@ app.controller('scoreBoardController',function($scope,$http,$interval,Codeforces
 		});
 		CodeforcesService.getUserInfo(usersList).then(function(response){
 			$scope.users = response.data.result;
+			//console.log($scope.users);
+			$scope.rankByUsers = [];
+			for (var i = 0; i < userList.length; i++) {
+				$scope.rankByUsers[$scope.users[i].handle] = $scope.users[i];
+			};
 		}),
 		$scope.contests = CodeforcesService.getContests();
 		stop = $interval(function() {
@@ -175,7 +158,7 @@ app.controller('scoreBoardController',function($scope,$http,$interval,Codeforces
 				});
 				$scope.listSubmission = res.slice(0, 25);
 			});
-		}, 1000);
+		}, 3000);
 	}
 	init(),
 	$scope.showSubmition = function(user){

@@ -74,7 +74,7 @@
     padding-left: 10px;
     padding-right: 10px; }
 
-.rated-user, .candidate, .expert, .specialist, .pupil {
+.rated-user, .candidate, .expert, .specialist, .pupil, .newbie {
   font-weight: bold; }
 
 .candidate {
@@ -88,6 +88,9 @@
 
 .pupil {
   color: #3c763d !important; }
+
+.newbie {
+  color: gray !important; }
 
 .user-black {
   color: black !important;

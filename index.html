@@ -9,6 +9,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="js/myApp.js"></script>
+	<!-- -->
+	<link rel="stylesheet" href="loading-bar/loading-bar.css">
+	<script src="loading-bar/loading-bar.js"></script>
 </head>
 <header>
 	<title>Dashboard</title>
@@ -62,11 +65,11 @@
 					</div>
 					<div class="row" style="text-align:center" ng-repeat="submit in listSubmission">
 						<div class="col-md-1 col-xs-1"><a target="_blank" title="source" href="http://codeforces.com/contest/{{submit.problem.contestId}}/submission/{{ submit.id }}">{{ submit.programmingLanguage}}</a></div>
-						<div class="col-md-2 col-xs-2">{{ submit.time }}</div>
-						<div class="col-md-2 col-xs-2">{{ submit.user }}</div>
+						<div class="col-md-2 col-xs-2">{{ submit.creationTimeSeconds*1000 | date:'yyyy-MM-dd HH:mm:ss' }}</div>
+						<div class="col-md-2 col-xs-2 {{ rankByUsers[submit.user].rank }}">{{ submit.user }}</div>
 						<div class="col-md-4 col-xs-4"><a target="_blank" href="http://codeforces.com/problemset/problem/{{submit.problem.contestId}}/{{submit.problem.index}}">{{submit.problem.contestId}}{{submit.problem.index}} - {{ submit.problem.name }}</a></div>
 						<div class="col-md-2 col-xs-2"><span class="{{ submit.verdict}}"></span></div>
-						<div class="col-md-1 col-xs-1" style="text-align:left">{{ submit.timeConsumedMillis}} ms</div>
+						<div class="col-md-1 col-xs-1" style="text-align:left">{{ submit.timeConsumedMillis | convert}}</div>
 					</div>
 				</div>
 			</div>

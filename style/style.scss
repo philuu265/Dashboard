@@ -4,6 +4,7 @@ $candidate-color: #a0a;
 $expert-color: blue;
 $specialist-color: #3c763d;
 $pupil-color: #3c763d;
+$newbie-color: gray;
 //
 $brand-color: white;
 $submit-error: #00a;
@@ -127,6 +128,10 @@ $submit-error: #00a;
 	.pupil {
 		@extend .rated-user;
 		color: $pupil-color !important;
+	}
+	.newbie{
+		@extend .rated-user;
+		color: $newbie-color !important;
 	}
 	.user-black{
 		color: black !important;
